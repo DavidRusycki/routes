@@ -39,6 +39,14 @@ class Route
     }
 
     /**
+     * Realiza o carregamento das rotas.
+     */
+    public function loadRoutes() 
+    {
+        require_once('../directions.php');
+    }
+
+    /**
      * Retorna uma instancia da classe.
      */
     public static function getInstance() : self
