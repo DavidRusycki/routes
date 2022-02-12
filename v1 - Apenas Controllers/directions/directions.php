@@ -9,4 +9,4 @@ Direction::define([
     Route::set('/routes/teste/', [new ControllerTeste(), 'init']),
     Route::set('/routes/lindo', [new ControllerORM(), 'teste']),
     Route::set('/routes/', [new ControllerORM(), 'asdf']),
-]); 
+]);
