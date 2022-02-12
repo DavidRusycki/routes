@@ -15,6 +15,7 @@ class Route
     private string $path;
     private object $controller;
     private string $method;
+    private string $url;
 
     /**
      * Construtor da classe.
@@ -64,6 +65,31 @@ class Route
      */
     public static function add(string $sString, array $aInfos) : self {
         return new self($sString, $aInfos);
+    }
+
+    /**
+     * Realiza o processamento para encontrar o controller através da URL indicada.
+     */
+    public function goToRoute() : bool
+    {
+        $bFound = false;
+        foreach($this->getRotas() as $oRoute) {
+            if ($oRoute->getPath() == $this->getUrl()) {
+                $bFound = true;
+                $oSubject = $oRoute->getController();
+                $sMethod = $oRoute->getMethod();
+                break;
+            }
+        }
+
+        if ($bFound) {
+            $oSubject->{$sMethod}();
+        }
+        else {
+            echo '404 Not Found';
+        }
+
+        return true;
     }
 
     /**
@@ -142,6 +168,26 @@ class Route
     public function setRotas(array $rotas)
     {
         $this->rotas = $rotas;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of url
+     */ 
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set the value of url
+     *
+     * @return  self
+     */ 
+    public function setUrl($url)
+    {
+        $this->url = $url;
 
         return $this;
     }
